@@ -1,9 +1,7 @@
 require('dotenv').config();
 const crypto = require('crypto');
 const redis = require('redis');
-const REDIS_PORT = process.env.REDIS_PORT;
-const REDIS_IP = process.env.REDIS_IP;
-const client = redis.createClient(REDIS_PORT, REDIS_IP);
+const client = redis.createClient(process.env.REDIS_URL);
 
 const strength = process.env.KEY_STRENGTH || 64;
 

@@ -1,8 +1,6 @@
 require('dotenv').config();
 const redis = require('redis');
-const REDIS_PORT = process.env.REDIS_PORT;
-const REDIS_IP = process.env.REDIS_IP;
-const client = redis.createClient(REDIS_PORT, REDIS_IP);
+const client = redis.createClient(process.env.REDIS_URL);
 const { promisify } = require('util');
 const getAsync = promisify(client.get).bind(client);
 
