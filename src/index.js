@@ -19,6 +19,20 @@ app.get('/apps/list', async (req, res) => {
     }
 });
 
+app.get('/ps/inspect/list', async (req, res) => {
+    try {
+        const response = await execAsync('dokku --quiet apps:list');
+        const appList = response.split('\n').pop();
+        const inspectList = await appList.map(async app => {
+            const inspect = await execAsync(`dokku ps:inspect ${app}`);
+            return JSON.parse(inspect.toString());
+        });
+        res.status(200).json({data: inspectList});
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+});
+
 app.get('/ps/inspect', async (req, res) => {
     try {
         const response = await execAsync(`dokku ps:inspect ${req.query.app}`);
