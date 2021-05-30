@@ -22,8 +22,8 @@ app.get('/apps/list', async (req, res) => {
 app.get('/ps/inspect', async (req, res) => {
     try {
         const res = await execAsync(`dokku ps:inspect ${req.params.app}`);
-        const appList = res.split('\n');
-        res.status(200).json({apps: appList});
+        const data = JSON.parse(res.toString());
+        res.status(200).json({data});
     } catch (error) {
         res.status(500).json({error});
     }
