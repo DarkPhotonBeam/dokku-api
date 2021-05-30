@@ -21,7 +21,7 @@ app.get('/apps/list', async (req, res) => {
 
 app.get('/ps/inspect', async (req, res) => {
     try {
-        const response = await execAsync(`dokku ps:inspect ${req.params.app}`);
+        const response = await execAsync(`dokku ps:inspect ${req.query.app}`);
         //const data = JSON.parse(response);
         res.status(200).json({data: response});
     } catch (err) {
