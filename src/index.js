@@ -22,7 +22,8 @@ app.get('/apps/list', async (req, res) => {
 app.get('/ps/inspect/list', async (req, res) => {
     try {
         const response = await execAsync('dokku --quiet apps:list');
-        const appList = response.split('\n').pop();
+        let appList = response.split('\n');
+        appList.pop();
         const inspectList = await appList.map(async app => {
             const inspect = await execAsync(`dokku ps:inspect ${app}`);
             return JSON.parse(inspect.toString());
