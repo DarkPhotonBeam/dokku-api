@@ -12,7 +12,8 @@ app.use(auth);
 app.get('/apps/list', async (req, res) => {
     try {
         const response = await execAsync('dokku --quiet apps:list');
-        const appList = response.split('\n');
+        let appList = response.split('\n');
+        appList.pop();
         res.status(200).json({apps: appList});
     } catch (err) {
         res.status(500).json({error: err.message});
@@ -24,10 +25,10 @@ app.get('/ps/inspect/list', async (req, res) => {
         const response = await execAsync('dokku --quiet apps:list');
         let appList = response.split('\n');
         appList.pop();
-        const inspectList = await appList.map(async app => {
+        const inspectList = await Promise.all(appList.map(async app => {
             const inspect = await execAsync(`dokku ps:inspect ${app}`);
             return JSON.parse(inspect.toString());
-        });
+        }));
         res.status(200).json({data: inspectList});
     } catch (err) {
         res.status(500).json({error: err.message});
