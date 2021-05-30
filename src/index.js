@@ -14,8 +14,8 @@ app.get('/apps/list', async (req, res) => {
         const res = await execAsync('dokku --quiet apps:list');
         const appList = res.split('\n');
         res.status(200).json({apps: appList});
-    } catch (error) {
-        res.status(500).json({error});
+    } catch (err) {
+        res.status(500).json({error: err.message});
     }
 });
 
@@ -24,8 +24,8 @@ app.get('/ps/inspect', async (req, res) => {
         const res = await execAsync(`dokku ps:inspect ${req.params.app}`);
         const data = JSON.parse(res.toString());
         res.status(200).json({data});
-    } catch (error) {
-        res.status(500).json({error});
+    } catch (err) {
+        res.status(500).json({error: err.message});
     }
 });
 

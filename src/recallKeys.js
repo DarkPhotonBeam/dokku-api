@@ -10,4 +10,6 @@ const getAsync = promisify(client.get).bind(client);
 
     console.log(`Public Key: ${key}`);
     console.log(`Secret Key: ${secret}`);
+
+    client.quit();
 })();
