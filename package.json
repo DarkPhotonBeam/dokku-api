@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "gen:keys": "node src/generateKeys.js"
+    "keys:gen": "node src/generateKeys.js",
+    "keys:get": "node src/recallKeys.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
