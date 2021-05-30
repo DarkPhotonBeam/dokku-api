@@ -11,7 +11,7 @@ app.use(auth);
 
 app.get('/apps/list', async (req, res) => {
     try {
-        const response = await execAsync('/usr/share/dokku --quiet apps:list');
+        const response = await execAsync('dokku --quiet apps:list');
         const appList = response.split('\n');
         res.status(200).json({apps: appList});
     } catch (err) {
@@ -21,7 +21,7 @@ app.get('/apps/list', async (req, res) => {
 
 app.get('/ps/inspect', async (req, res) => {
     try {
-        const response = await execAsync(`/usr/share/dokku ps:inspect ${req.params.app}`);
+        const response = await execAsync(`dokku ps:inspect ${req.params.app}`);
         //const data = JSON.parse(response);
         res.status(200).json({data: response});
     } catch (err) {
